@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Registro de usuarios</title>
+</head>
+<body>
+	<form method="post" autocomplete="off" name="google-sheet">
+		<center><br><br>
+			<h1>Registro de usuarios</h1><br>
+			<table border="5">	
+				<tr>
+					<td><b>Nombre: </b></td>
+					<td><input type="text" name="Name" required /></td>
+				</tr>
+				<tr>
+					<td><b>Email: </b></td>
+					<td><input type="text" name="Email" required /></td>
+				</tr>
+				<tr>
+					<td><b>Teléfono: </b></td>
+					<td><input type="number" name="Phone" required /></td>
+				</tr>
+				<tr>
+					<td><b>Género: </b></td>
+					<td>
+						<input type="radio" name="Gender" value="male">Hombre
+						<input type="radio" name="Gender" value="female">Mujer
+					</td>
+				</tr>
+			</table>
+			<br><br>
+			<input type="submit" name="submit" value="Enviar" />
+			<br><br>
+			<div id="response"></div>
+		</center>
+	</form>
+
+	<script>
+		const form = document.forms['https://script.google.com/macros/library/d/1iwhPgj-mYYgKZJ8a3Jt8EdUVgR2uJ0wjDpklxLjwz77mhwaI0XeIusno/1'];
+
+		form.addEventListener('submit', (e) => {
+			e.preventDefault();
+			fetch(form.action, {
+				method: form.method,
+				body: new FormData(form)
+			})
+			.then(response => response.text())
+			.then((data) => {
+				document.getElementById('response').innerHTML = data;
+				form.reset();
+			})
+			.catch((error) => {
+				console.error('Error: ', error);
+			})
+		});
+	</script>
+</body>
+</html>
+
+
